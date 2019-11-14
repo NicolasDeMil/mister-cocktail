@@ -1,0 +1,17 @@
+<div class="container text-center m-3 mx-auto">
+
+	<h1>COCKTAIL MENU ❤️</h1>
+
+	<br>
+
+	<ul>
+	<% @cocktails.each do |cocktail| %>
+	  <li style="list-style: none;"><%= link_to cocktail[:name], cocktail_path(cocktail), class: "btn btn-light" %></li>
+	  <br>
+	<% end %>
+	</ul>
+
+	<%= link_to "Add Cocktail", new_cocktail_path(@cocktail), class: "btn btn-primary" %>
+
+	<br>
+</div>

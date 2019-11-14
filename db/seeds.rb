@@ -16,5 +16,5 @@ cocktails = JSON.parse(cocktails_serial)
 drinks = cocktails['drinks']
 
 drinks.each do |drink|
-  Cocktail.create(name: drink["strIngredient1"])
+  Ingredient.create(name: drink["strIngredient1"])
 end

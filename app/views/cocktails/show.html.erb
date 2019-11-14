@@ -1,0 +1,27 @@
+<div class="container text-center m-3 mx-auto border py-5">
+
+	<h1><%= @cocktail.name %></h1>
+
+	<p>This cocktail is made with the following:</p>
+
+
+  	<ul>
+	<% @cocktail.doses.each do |dose| %>
+	  <li style="list-style: none"><%= Ingredient.find(dose.ingredient_id).name %></li>
+	  <li style="list-style: none"><%= dose.description %></li>
+	  <li style="list-style: none">
+	  <%= link_to "Delete", dose_path(dose.id),
+      method: :delete,
+      class: "btn btn-primary" %>
+    </li>
+	  <br>
+	<% end %>
+  </ul>
+
+	<div class="text-center mx-auto">
+		<%= link_to "Add a dose", new_cocktail_dose_path(@cocktail), class: "btn btn-primary" %>
+
+		<%= link_to "Back to Cocktails", cocktails_path, class: "btn btn-primary" %>
+	</div>
+
+</div>
