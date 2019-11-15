@@ -1,25 +1,34 @@
-<div class="container text-center m-3 mx-auto border py-5">
+<div class="container text-center m-3 mx-auto rounded">
 
 	<h1><%= @cocktail.name %></h1>
 
 	<p>This cocktail is made with the following:</p>
 
+	<% if @cocktail.photo.attached? %>
 
-  	<ul>
-	<% @cocktail.doses.each do |dose| %>
-	  <li style="list-style: none"><%= Ingredient.find(dose.ingredient_id).name %></li>
-	  <li style="list-style: none"><%= dose.description %></li>
-	  <li style="list-style: none">
-	  <%= link_to "Delete", dose_path(dose.id),
-      method: :delete,
-      class: "btn btn-primary" %>
-    </li>
-	  <br>
-	<% end %>
-  </ul>
+	  <div style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @cocktail.photo.key, height: 800, width: 800, crop: :fill %>')"></div>
 
-	<div class="text-center mx-auto">
+  <% else %>
+
+	  <div class="rounded p-3" style="height: 100vh; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= "https://loremflickr.com/800/800/#{@cocktail.name}" %>')"></div>
+
+  <% end %>
+
+	<ul>
+		<% @cocktail.doses.each do |dose| %>
+		<li style="list-style: none; display: flex; justify-content: space-between;"><%= dose.description + " " + Ingredient.find(dose.ingredient_id).name %>
+			<%= link_to "Delete", dose_path(dose.id),
+			method: :delete,
+			class: "btn btn-primary" %>
+		</li>
+		<br>
+		<% end %>
+	</ul>
+
+	<div class="flex text-center mx-auto">
 		<%= link_to "Add a dose", new_cocktail_dose_path(@cocktail), class: "btn btn-primary" %>
+
+		<%= link_to "Delete Cocktail", cocktail_path(@cocktail), method: :delete, class: "btn btn-primary" %>
 
 		<%= link_to "Back to Cocktails", root_path, class: "btn btn-primary" %>
 	</div>

@@ -1,12 +1,26 @@
-<div class="container text-center m-3 mx-auto">
+<div class="container text-center m-3 mx-auto rounded">
 
 	<h1>COCKTAIL MENU ❤️</h1>
 
 	<br>
 
-	<ul>
+	<ul style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center">
 	<% @cocktails.each do |cocktail| %>
-	  <li style="list-style: none;"><%= link_to cocktail[:name], cocktail_path(cocktail), class: "btn btn-light" %></li>
+	  <li style="list-style: none; justify-content: center;">
+	  	<% if cocktail.photo.attached? %>
+
+	  	  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path cocktail.photo.key, height: 300, width: 400, crop: :fill %>')">
+	  	    <%= link_to cocktail[:name], cocktail_path(cocktail)%>
+	  	  </div>
+
+	  	<% else %>
+
+	  	  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= "https://loremflickr.com/300/400/#{cocktail.name}" %>')">
+	  	  <%= link_to cocktail[:name], cocktail_path(cocktail)%>
+	  	</div>
+
+	  	<% end %>
+	  	</li>
 	  <br>
 	<% end %>
 	</ul>
